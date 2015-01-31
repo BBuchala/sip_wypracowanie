@@ -91,14 +91,14 @@ Wraz z rozwojem informatyki, znalazła ona szerokie zastosowanie w różnych ga�
 	\item Autokorekcja w przypadku, kiedy dojdzie do częściowej awarii systemy \\
 \end{itemize}
 
-Przy stosunkowo niewielkim koszcie (zaprojektowanie, zaprogramowanie, instalacja takiego systemu).  Problem pojawił się przy dalszej rozbudowie branży przemysłowej (co dla części informatycznej oznaczało przede wszystkim rosnącą złożoność obliczeniową zastosowanych algorytmów czy większą liczbę urządzeń do obsłużenia). Dodatkowo, pewnym utrudnieniem jest mniejsza w ostatnich latach dynamika rozwoju mocy obliczeniowej pojedynczych komputerów, co jest związane ze zbliżaniem się do pułapu miniaturyzacji elementów. Remedium na ten problem okazało się zastosowanie \textbf{systemów rozproszonych czasu rzeczywistego.} \\
+Przy stosunkowo niewielkim koszcie (zaprojektowanie, zaprogramowanie, instalacja takiego systemu),   problem pojawił się przy dalszej rozbudowie branży przemysłowej (co dla części informatycznej oznaczało przede wszystkim rosnącą złożoność obliczeniową zastosowanych algorytmów czy większą liczbę urządzeń do obsłużenia). Dodatkowo, pewnym utrudnieniem jest mniejsza w ostatnich latach dynamika rozwoju mocy obliczeniowej pojedynczych komputerów, co jest związane ze zbliżaniem się do pułapu miniaturyzacji elementów. Remedium na ten problem okazało się zastosowanie \textbf{systemów rozproszonych czasu rzeczywistego.} \\
 
 Dla systemu czasu rzeczywistego, oprócz warunków logicznych, ważne jest również spełnienie warunków czasowych. Oznacza to, że oprócz poprawnych rezultatów musi on również zapewnić ich wykonanie w odpowiednim czasie. Można wyróżnić systemy czasu rzeczywistego, które tolerują przekroczenie ograniczeń czasowych (interwału czasowego), i takie dla których czas operacji jest wartością krytyczną. \\
 
 Podstawową cechą systemów rozproszonych jest fakt, że jest to zbiór niezależnych od siebie komputerów (lub rzadziej procesorów, jeżeli mówimy o komputerach wieloprocesorowych), połączonych siecią komputerową. Posiadają one wspólne oprogramowanie, które pozwala im na współdziałanie (podział zasobów, współbieżne wykonywanie obliczeń) w określonym przez twórcę celu. Komputery będące elementami większego systemu rozproszonego najczęściej nazywa się \textbf{węzłami}. Aby zapewnić poprawną pracę, wymagana jest odpowiednia komunikacja między węzłami.
 
 \section{\textcolor{blue}{Struktura węzła w sieci przemysłowej}}
-Rolę węzła systemu rozproszonego najczęściej pełni sterownik swobodnie programowalny (PLC) lub grupa takich sterowników.  PLC jest uniwersalnym urządzeniem mikroprocesorowym, którego zadaniem jest sterowanie maszyną lub urządzeniem technicznym. Realizuje on program znajdujący się w jego pamięci operacyjnej. Ponieważ węzeł jest elementem większej sieci, samo PLC nie wystarcza. Zazwyczaj pojedynczy moduł ma budowę trójwarstową: \\
+Rolę węzła systemu rozproszonego najczęściej pełni sterownik swobodnie programowalny (PLC) lub grupa takich sterowników. PLC jest uniwersalnym urządzeniem mikroprocesorowym, którego zadaniem jest sterowanie maszyną lub urządzeniem technicznym. Realizuje on program znajdujący się w jego pamięci operacyjnej. Ponieważ węzeł jest elementem większej sieci, samo PLC nie wystarcza. Zazwyczaj pojedynczy moduł ma budowę trójwarstwową: \\
 
 \begin{center}
 	\includegraphics[width=8cm]{./img/wezel.jpg}
@@ -108,18 +108,92 @@ Rolę węzła systemu rozproszonego najczęściej pełni sterownik swobodnie pro
 	\item Przez \textbf{aplikację} rozumiemy znajdujący się w sterowniku PLC system operacyjny czasu rzeczywistego oraz program cyklicznie realizujący określone przez programistę założenia. Ten poziom odpowiada za faktyczną pracę urządzenia i jest częściowo niezależny od innych węzłów systemu. \\
 	\item \textbf{Koprocesor} jest elementem pracującym niezależnie od głównego procesora urządzenia. Jest on odpowiedzialny za komunikację pomiędzy macierzystym układem, a siecią. Posiada dwa zastosowania: 
 	\begin{itemize}
-		\item Nadawanie – otrzymując informacje od procesora głównego,  kopiuje ona odpowiednie fragmenty pamięci do buforów nadawczych, następnie transformuje je do odpowiedniej formy (ramki transmisyjne), po czym wysyła je przy użyciu nadajnika (portu UART) \\
-		\item Odbieranie – przechwytuje informacje z sieci skierowane do tego węzła i dekoduje je do formy mogącej być odczytaną przez sterownik. Po tym następuje skopiowanie treści do bufora odbiorczego i przepisanie do pamięci urządzenia 
+		\item \textit{Nadawanie} – otrzymując informacje od procesora głównego,  kopiuje ona odpowiednie fragmenty pamięci do buforów nadawczych, następnie transformuje je do odpowiedniej formy (ramki transmisyjne), po czym wysyła je przy użyciu nadajnika (portu UART) \\
+		\item \textit{Odbieranie} – przechwytuje informacje z sieci skierowane do tego węzła i dekoduje je do formy mogącej być odczytaną przez sterownik. Po tym następuje skopiowanie treści do bufora odbiorczego i przepisanie do pamięci urządzenia 
 	\end{itemize}
-	\item Protokół transmisji jest ściśle związany z koprocesorem sieci. Jest zbiorem zasad, na jakich odbywa się połączenie pomiędzy dwoma lub więcej węzłami w sieci. Dzięki temu możliwa jest komunikacja sterowników działających na różnym oprogramowaniu. \\
+	\item \textbf{Protokół transmisji} jest ściśle związany z koprocesorem sieci. Jest zbiorem zasad, na jakich odbywa się połączenie pomiędzy dwoma lub więcej węzłami w sieci. Dzięki temu możliwa jest komunikacja sterowników działających na różnym oprogramowaniu.\\
 	
 \end{itemize}
 
-W dalszej części wypracowania skupimy się głównie na tym ostatnim.
+W dalszej części wypracowania skupimy się głównie na protokole transmisji.
 
 
 \section{\textcolor{blue}{Rodzaje protokołów stosowane w sieciach przemysłowych}}
 
-Ponieważ rozproszona sieć przemysłowa czasu rzeczywistego powinna się charakteryzować  skończonym czasem przekazywania danych, będą nas interesować jedynie protokoły o zdefiniowanym (deterministycznym) w czasie dostępie. 
+Ponieważ rozproszona sieć przemysłowa czasu rzeczywistego powinna się charakteryzować skończonym czasem przekazywania danych, będą nas interesować jedynie protokoły o zdefiniowanym (deterministycznym) w czasie dostępie.\\
+Współcześnie można wyróżnić tylko 3 rodzaje protokołów, które spełniają powyższy warunek:
+\begin{itemize}
+	\item Token - Ring (Token - Bus)
+	\item Master - Slave
+	\item Producent - Dystrybutor - Konsument (PDK)
+\end{itemize}
+Pierwsze dwa protokoły posiadają wiele implementacji i zastosowań, z kolei trzeci z nich jest dość świeży 
+
+
+\section{\textcolor{blue}{Sieci o dostępie typu Master-Slave}}
+Protokół Master-Slave jest prostą metodą dostępu ze względu na narzucone w niej ograniczenia i sztywne reguły transmisji:
+\begin{itemize}
+	\item Wymiana informacji jest dopuszczalna jedynie pomiędzy wybraną stację nadrzędną, zwaną Master, a jedną ze stacji podrzędnych, zwanymi Slave
+	\item Tylko stacja Master może inicjować transakcje
+	\item Dwa rodzaje transmisji:
+	\begin{itemize}
+		\item \textbf{Zapytanie - Odpowiedź}: polega na wymienia informacji pomiędzy Masterem, a wybraną, konkretną stacją Slave. W tym procesie uczestniczy żądanie (zdefiniowany rozkaz) oraz odpowiedź od Slave.
+		\item \textbf{Rozgłoszenie}: żądanie jest wysyłane do wszystkich jednostek Slave w sieci, a Master nie oczekuje od nich odpowiedzi.
+	\end{itemize}
+	\item Ograniczona liczba rozkazów jaką może realizować Master, czyli ściśle określony zbiór dopuszczalnych wymian
+	\item Wymiany informacji odbywają się cyklicznie i nie wymagają ani wstrzymania sieci, ani jej ponownego uruchomienia
+\end{itemize}
+Powyższe własności sieci Master-Slave niosą ze sobą wiele zalet:
+\begin{itemize}
+	\item Niskie wymagania z punktu widzenia oprogramowania
+	\item Łatwa konfiguracja sieci
+	\item Konieczność oprogramowania sprowadza się wyłącznie do koprocesora stacji Master. Stacje Slave mogą wykonywać polecenie sprzętowo, bez konieczności programowania.
+	\item Szybkie uruchomienie systemu komunikacyjnego
+\end{itemize}
+
+
+\subsection{Scenariusz wymian}
+Scenariusz wymian to szczegółowy opis możliwych wymian danych w sieci. Znajduje się w pamięci koprocesora jednostki Master i jest to jeden z najistotniejszych elementów sieci Master - Slave. Spoczywa na nim obowiązek konfiguracji całej sieci i doprowadzenie do jej sprawnego działania. Struktura scenariusza wymian składa się z listy zmiennych jakie mogą być przesyłane, czyli ich nazw, kierunków transmisji oraz czasów odświeżania.\\
+Aby móc wykonać scenariusz wymian wymagane jest zdefiniowanie budowy ramek jakie są przesyłane. Ponieważ w sieci Master - Slave wyróżnia się dwa rodzaje transmisji:
+\begin{itemize}
+	\item Master - Slave ("żądanie" oraz "rozgłoszenie"), 
+	\item Slave - Master ("odpowiedź"), 
+\end{itemize}
+pojawia się konieczność określenia dwóch typów ramek, gdzie każda będzie mogła wykonać zadanie jednej z transmisji.\\
+Elementarną ramkę w tego typu sieci przedstawia poniższa tabela:
+\begin{center}
+	\begin{tabular}{cccc}
+		1 [B] & 1 [B] & n [B] & 2 [B] \\ 
+		\hline \multicolumn{1}{|c}{Adres stacji} & \multicolumn{1}{|c}{Kod funkcji} & \multicolumn{1}{|c}{Dane} & \multicolumn{1}{|c|}{Kontrola błędów} \\ 
+		\hline 
+	\end{tabular}
+\end{center}
+
+\begin{itemize}
+	\item \textbf{Adres stacji} - określa do której z jednostek Slave należy wysłać dane. Pewna określona wartość w tym polu oznacza "rozgłoszenie", czyli wysłanie ramki do wszystkich stacji Slave, jednak jest ona zależna od rozwiązań firmowych.
+	\item \textbf{Kod funkcji} - definiuje rozkaz jaki Master każe wykonać Slave.
+	\item \textbf{Dane} - wielkość tego pola jest zależna zarówno od Kodu Funkcji, jak i od konkretnych implementacji sieci. Rola tego pola nie ogranicza się do "surowych" danych, może również zawierać takie informacje jak kod funkcji dodatkowych bądź adres danych, które zależy odczytać.
+	\item \textbf{Kontrola błędów} - słowo kontrolne, które ma gwarantować przesył poprawnych danych. Jest zależne od implementacji, może to być m.in. CRC lub LRC.
+	\item W zależności od konkretnego rozwiązania, w ramce można wyróżnić jeszcze znaczniki początku ramki oraz końca ramki.
+\end{itemize}
+Pierwsze dwa pola są identyczne dla obu ramek. W ramce "żądania" w polu Adres Stacji znajduje się albo właściwy adres stacji Slave, bądź Rozgłoszenie. Z kolei w ramce "odpowiedzi" w tym polu może znajdować się albo adres Mastera, albo adres własny ramki - pozwala to Masterowi zweryfikować, czy otrzymana ramka jest od prawidłowej stacji. W polu danych ramki "odpowiedzi" mogą znajdować się albo dane, które są wynikiem wykonania rozkazu, albo jedynie potwierdzenie realizacji. \\\\
+Właściwy proces tworzenia scenariusza wymian jest zależny jedynie od upodobań konfigurującego sieć.
+
+
+
+
+
+
+
+
+
+
+
+
+\newpage
+\begin{thebibliography}{2}
+	\bibitem{Hab} Andrzej Kwiecień, \textit{Analiza przepływu informacji w komputerowych sieciach przemysłowych}, Gliwice 2002
+	\bibitem{RS} Wojciech Mielczarek, \textit{Szeregowe interfejsy cyfrowe}, Helion, Gliwice 1997
+\end{thebibliography}
 
 \end{document}
