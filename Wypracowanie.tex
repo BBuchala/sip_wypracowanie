@@ -181,7 +181,14 @@ Elementarną ramkę w tego typu sieci przedstawia poniższa tabela:
 Pierwsze dwa pola są identyczne dla obu ramek. W ramce "żądania" w polu Adres Stacji znajduje się albo właściwy adres stacji Slave, bądź Rozgłoszenie. Z kolei w ramce "odpowiedzi" w tym polu może znajdować się albo adres Mastera, albo adres własny ramki - pozwala to Masterowi zweryfikować, czy otrzymana ramka jest od prawidłowej stacji. W polu danych ramki "odpowiedzi" mogą znajdować się albo dane, które są wynikiem wykonania rozkazu, albo jedynie potwierdzenie realizacji. \\\\
 Właściwy proces tworzenia scenariusza wymian jest zależny jedynie od upodobań konfigurującego sieć.
 
+\subsection{Dziury w sieci Master - Slave}
+"Dziury" są negatywnym zjawiskiem w funkcjonowaniu sieci, które objawia się poprzez przerwę w zbiorze stacji. W sieci Master-Slave źródłem dziur może być wyłącznie uszkodzenie stacji abonenckiej lub jej wyłączenie. Ogółem rzecz biorąc, dziury powstają na wskutek nieobecności stacji w sieci. Skutkiem istnienia dziur jest opóźnienie wymiany informacji pomiędzy Masterem, a stacją podrzędną, co może być niebezpieczne z punktu widzenia krytycznych parametrów sieci, m.in. gwarantowanego czasu dostarczenia informacji. Rolą programistów jest zapewnienie takiej konfiguracji, aby dziury powstawały jak najrzadziej.\\
+Prosta topologia sieci Master-Slave oraz nieskomplikowana konfiguracji w postaci scenariusza wymian umożliwiają wykrycie dziur już na wczesnym etapie. Każda wymiana informacji, jaka znajduje się w scenariuszu, jest kierowana wyłącznie do jednego adresata. Jeżeli wystąpi błąd w konfiguracji i wymiana będzie skierowana do nieistniejącego abonenta, zostanie ona wychwycona.\\
+Odłączenie lub uszkodzenie stacji Slave może skutkować opóźnieniem czasu pracy, który jest równy sumie czasu transmisji ramki od Mastera oraz czasu oczekiwania na odpowiedź. Co więcej, może się zdarzyć, że do nieaktywnego odbiorcy wysyłana ramka posiada wiele danych i jest bardzo długa, co dodatkowo opóźnia czas reakcji.\\
+Jednym z mechanizmów umożliwiających minimalizację start czasowych związanych z powstawaniem dziur jest określanie liczby cykli w czasie których stacja odbiorcza nie jest odpytywana. Po zakończeniu wszystkich cykli nawiązywana jest próba połączenia ze stacją. Jeżeli i tym razem odbiorca jest nieaktywny, następuje ponowne wstrzymanie wymian z nim oraz odczekanie wcześniej ustalonej liczby cykli. Ta metoda nosi nazwę "autousuwania" nieobecnego abonenta. Zastosowanie tego rozwiązania zależy już wyłącznie od decyzji programisty, który powinien mieć możliwość włączania i wyłączania mechanizmu autousuwania.
 
+
+\subsection{Parametryzacja wymian}
 
 
 
