@@ -120,14 +120,16 @@ W dalszej części wypracowania skupimy się głównie na protokole transmisji.
 
 \section{\textcolor{blue}{Rodzaje protokołów stosowane w sieciach przemysłowych}}
 
-Ponieważ rozproszona sieć przemysłowa czasu rzeczywistego powinna się charakteryzować skończonym czasem przekazywania danych, będą nas interesować jedynie protokoły o zdefiniowanym (deterministycznym) w czasie dostępie.\\
+Ponieważ rozproszona sieć przemysłowa czasu rzeczywistego powinna się charakteryzować skończonym czasem przekazywania danych, będą nas interesować jedynie protokoły o zdefiniowanym (deterministycznym) w czasie dostępie. Determinizm czasowy nie wymaga stuprocentowej niezawodności podczas przekazywania danych. Za poprawną pracę sieci przyjmuje się wtedy sytuację, kiedy nie dochodzi do wystąpienia stanu awaryjnego (zarówno z logicznego, jak i fizycznego punktu widzenia). Naistotniejsze jest, aby czas dostępu do pamięci został obarczony krytycznym czasem granicznym.\\
 Współcześnie można wyróżnić tylko 3 rodzaje protokołów, które spełniają powyższy warunek:
 \begin{itemize}
-	\item Token - Ring (Token - Bus)
+	\item Token
 	\item Master - Slave
 	\item Producent - Dystrybutor - Konsument (PDK)
 \end{itemize}
-Pierwsze dwa protokoły posiadają wiele implementacji i zastosowań, z kolei trzeci z nich jest dość świeży 
+Pierwsze dwa protokoły posiadają wiele implementacji i zastosowań, z kolei trzeci z nich jest dość świeży. Wszystkie inne rodzaje protokołów spełniające warunek deterministyczny są pochodnymi lub hybrydami powyższych modeli. \\
+Protokół z użyciem Tokena polega na przesyłaniu informacji między równorzędnymi stacjami, posiadającymi dostęp do wspólnej magistrali. Aby zapewnić brak kolizji (sytuacji, w których więcej niż jedna stacja zapisuje dane), stosuje się tzw. żeton (z ang. \textit{Token}). Jest to specjalny rodzaj informacji krążący po sieci od jednej stacji do do drugiej. Odczytanie Tokenu przez węzeł powoduje jej uprzywilejowanie, co w praktyce oznacza prawo do transmisji ramek z danymi. Jednak aby zachować prawo determinizmu czasowego, prawo do zapisu trwa określony czas, a po jego upływie węzeł musi bezwględnie przekazać żeton następnemu użytkownikowi. Token wykorzystywany jest między innymi w protokołach typu Token-Ring (pierścieniowa budowa sieci) i Token-Bus (pojedyncza magistrala, w praktyce konfiguracja gwiazdy). \\
+Model PDK bazuje na podziale stacji na 3 rodzaje abonentów: producentów, dystrybutorów oraz konsumentów. "Producent" pełni tu rolę nadawcy: "produkuje" dane, które zostaną użyte przez inne stacje. "Dystrybutor" jest pośrednikiem - jego zadaniem jest transfer danych od producenta (lub wielu producentów) do konsumentów. Dystrybutor przechowuje scenariusz wymian i na jego podstawie określa, kiedy dana informacja ma trafić do sieci. W trakcie podejmowania decyzji, gdzie trafić mają dane pod uwagę brane są średnia konsumpcja oraz aktualne obciążenie konsumentów. "Konsument" to stacja będąca punktem końcowych dla danych, gdzie są one odczytywane i odpowiednio używane. Protokół ten jest używany np. w sieci FIP.
 
 
 \section{\textcolor{blue}{Sieci o dostępie typu Master-Slave}}
