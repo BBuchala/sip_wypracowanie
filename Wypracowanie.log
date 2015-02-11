@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.12.5)  8 FEB 2015 16:35
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.12.5)  11 FEB 2015 17:21
 entering extended mode
 **Wypracowanie.tex
 ("F:\Uczelnia\Sem 5\SIP\sip_wypracowanie\Wypracowanie.tex"
@@ -703,7 +703,7 @@ LaTeX Info: Redefining \selectfont on input line 126.
 \RaggedRightParindent=\skip66
 \JustifyingParindent=\skip67
 )
-<./img/logo.png, id=31, 398.2077pt x 398.4486pt>
+<./img/logo.png, id=43, 398.2077pt x 398.4486pt>
 File: ./img/logo.png Graphic file (type png)
  <use ./img/logo.png>
 Package pdftex.def Info: ./img/logo.png used on input line 57.
@@ -752,7 +752,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 101--102
 
  []
 
-<./img/wezel.jpg, id=41, 462.12085pt x 346.0817pt>
+<./img/wezel.jpg, id=53, 462.12085pt x 346.0817pt>
 File: ./img/wezel.jpg Graphic file (type jpg)
  <use ./img/wezel.jpg>
 Package pdftex.def Info: ./img/wezel.jpg used on input line 104.
@@ -801,36 +801,39 @@ Underfull \hbox (badness 10000) in paragraph at lines 181--183
 
  []
 
-[5]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 208.
- [6]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 208.
+[5] [6]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 245.
+ [7]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 245.
  ("F:\Uczelnia\Sem 5\SIP\sip_wypracowanie\Wypracowanie.aux")
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 208.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 208.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 245.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 245.
 Package rerunfilecheck Info: File `Wypracowanie.out' has not changed.
-(rerunfilecheck)             Checksum: 5B1920C8971925D9B5664AF16085D45A;1429.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 208.
+(rerunfilecheck)             Checksum: 8B5A1409947D35591F325EA932A8D9B2;2092.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 245.
  ) 
 Here is how much of TeX's memory you used:
- 11169 strings out of 493921
- 153547 string characters out of 3147285
- 233378 words of memory out of 3000000
- 14306 multiletter control sequences out of 15000+200000
+ 11183 strings out of 493921
+ 153818 string characters out of 3147285
+ 233439 words of memory out of 3000000
+ 14316 multiletter control sequences out of 15000+200000
  12886 words of font info for 35 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  29i,7n,35p,884b,401s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/pl/plit.enc}{C:/Program Files/Mi
-KTeX 2.9/fonts/enc/dvips/pl/plrm.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvi
-ps/pl/plsc.enc}<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy
-10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/pl/plbx10.pfb><C:/Progra
-m Files/MiKTeX 2.9/fonts/type1/public/pl/plbx12.pfb><C:/Program Files/MiKTeX 2.
-9/fonts/type1/public/pl/plcsc10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/pu
-blic/pl/plr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/pl/plr12.pfb>
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/pl/plti10.pfb>
-Output written on Wypracowanie.pdf (6 pages, 376186 bytes).
+{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/pl/plmi.enc}{C:/Program Files/Mi
+KTeX 2.9/fonts/enc/dvips/pl/plit.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvi
+ps/pl/plrm.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/pl/plsc.enc}<C:/Pro
+gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/pl/plbx10.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/pl/plbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/p
+l/plcsc10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/pl/plmi10.pfb><C:
+/Program Files/MiKTeX 2.9/fonts/type1/public/pl/plmi7.pfb><C:/Program Files/MiK
+TeX 2.9/fonts/type1/public/pl/plr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type
+1/public/pl/plr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/pl/plti10
+.pfb>
+Output written on Wypracowanie.pdf (7 pages, 391340 bytes).
 PDF statistics:
- 98 PDF objects out of 1000 (max. 8388607)
- 16 named destinations out of 1000 (max. 500000)
- 67 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 128 PDF objects out of 1000 (max. 8388607)
+ 20 named destinations out of 1000 (max. 500000)
+ 91 words of extra memory for PDF output out of 10000 (max. 10000000)
 
