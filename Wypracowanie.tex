@@ -165,7 +165,7 @@ Współcześnie można wyróżnić tylko 3 rodzaje protokołów, które spełnia
 	\item Producent - Dystrybutor - Konsument (PDK)
 \end{itemize}
 Pierwsze dwa protokoły posiadają wiele implementacji i zastosowań, z kolei trzeci z nich jest dość świeży. Wszystkie inne rodzaje protokołów spełniające warunek deterministyczny są pochodnymi lub hybrydami powyższych modeli. \\\\
-Protokół z użyciem Tokena polega na przesyłaniu informacji między równorzędnymi stacjami, posiadającymi dostęp do wspólnej magistrali. Aby zapewnić brak kolizji (sytuacji, w których więcej niż jedna stacja zapisuje dane), stosuje się tzw. żeton (z ang. \textit{Token}). Jest to specjalny rodzaj informacji krążący po sieci od jednej stacji do drugiej. Odczytanie Tokenu przez węzeł powoduje jego uprzywilejowanie, co w praktyce oznacza prawo do transmisji ramek z danymi. Jednak aby zachować prawo determinizmu czasowego, prawo do zapisu trwa określony czas, a po jego upływie węzeł musi bezwględnie przekazać żeton następnemu użytkownikowi. Token wykorzystywany jest między innymi w protokołach typu Token-Ring (pierścieniowa budowa sieci) i Token-Bus (pojedyncza magistrala, w praktyce konfiguracja gwiazdy). \\\\
+Protokół z użyciem Tokena polega na przesyłaniu informacji między równorzędnymi stacjami, posiadającymi dostęp do wspólnej magistrali. Aby zapewnić brak kolizji (sytuacji, w których więcej niż jedna stacja zapisuje dane), stosuje się tzw. żeton (z ang. \textit{Token}). Jest to specjalny rodzaj informacji krążący po sieci od jednej stacji do drugiej. Odczytanie Tokenu przez węzeł powoduje jego uprzywilejowanie, co w praktyce oznacza prawo do transmisji ramek z danymi. Jednak aby zachować prawo determinizmu czasowego, prawo do zapisu trwa określony czas, a po jego upływie węzeł musi bezwzględnie przekazać żeton następnemu użytkownikowi. Token wykorzystywany jest między innymi w protokołach typu Token-Ring (pierścieniowa budowa sieci) i Token-Bus (pojedyncza magistrala, w praktyce konfiguracja gwiazdy). \\\\
 Model PDK bazuje na podziale stacji na 3 rodzaje abonentów: producentów, dystrybutorów oraz konsumentów. "Producent" pełni tu rolę nadawcy: "produkuje" dane, które zostaną użyte przez inne stacje. "Dystrybutor" jest pośrednikiem - jego zadaniem jest transfer danych od producenta (lub wielu producentów) do konsumentów. Dystrybutor przechowuje scenariusz wymian i na jego podstawie określa, kiedy dana informacja ma trafić do sieci. W trakcie podejmowania decyzji, gdzie trafić mają dane pod uwagę brane są średnia konsumpcja oraz aktualne obciążenie konsumentów. "Konsument" to stacja będąca punktem końcowych dla danych, gdzie są one odczytywane i odpowiednio używane. Protokół ten jest używany np. w sieci FIP.
 
 
@@ -389,7 +389,7 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 	\begin{equation}
 	P = \cfrac{8\cdot n}{T_{Wi}}
 	\end{equation}
-	
+\newpage
 	Gdzie:
 	\begin{itemize}
 		\item η - sprawność
@@ -426,14 +426,15 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 
 \section{\textcolor{blue}{Podsumowanie}}
 Większość współczesnych systemów informatycznych stosowanych w przemyśle ze względu na swój format jest systemami rozproszonymi czasu rzeczywistego. By zapewnić im stabilność działania i brak awarii, należy zagwarantować aby poszczególne fragmenty składające się na całość działania wykonywały się w określonym, ograniczonym czasie. Taki efekt można uzyskać przede wszystkim implementując odpowiedni protokół komunikacji. \\\\
-Jednym z najpopularniejszych i najbardziej efektywnych protokołów spełniających warunek determinizmu czasowego jest Master-Slave, oparty na komunikacji pomiędzy stacją nadrzędną i wieloma stacjami podrzędnymi. Nawet w przypadku pojawienia się stanu niepożądanego ("dziur") dla danej sieci M-S istnieje możliwość obliczenia zdefiniowanego czasu transakcji posiadając informację o ilości i czasie repetycji żądania. Większość logiki jest realizowana po stronie stacji nadrzędnej, dlatego w celu optymalizacji czasowej w pierwszej kolejności tam należy wykonać usprawnienia.
+Jednym z najpopularniejszych i najbardziej efektywnych protokołów spełniających warunek determinizmu czasowego jest Master-Slave, oparty na komunikacji pomiędzy stacją nadrzędną i wieloma stacjami podrzędnymi. Nawet w przypadku pojawienia się stanu niepożądanego ("dziur") dla danej sieci M-S istnieje możliwość obliczenia zdefiniowanego czasu transakcji posiadając informację o ilości i czasie repetycji żądania. Większość logiki jest realizowana po stronie stacji nadrzędnej, dlatego w celu optymalizacji czasowej w pierwszej kolejności tam należy wykonać usprawnienia.\\\\
+W czasie pisania wypracowania zrozumieliśmy jak wielki obowiązek spoczywa na programistach zajmujących się konfiguracją sieci typu Master - Slave. Opracowanie dobrego scenariusza wymian oraz obliczenie prawidłowych wartości czasowych to odpowiedzialne zadanie, do którego trzeba podejść bardzo ostrożnie i z wielką dokładnością, ponieważ nawet niewielkie błędy mogą doprowadzić do błędnego lub nieoptymalnego działania sieci.
 
 
-\newpage
+\vfill
 \begin{thebibliography}{2}
 	\bibitem{Hab} Andrzej Kwiecień, \textit{Analiza przepływu informacji w komputerowych sieciach przemysłowych}, Gliwice 2002
 	\bibitem{RS} Wojciech Mielczarek, \textit{Szeregowe interfejsy cyfrowe}, Helion, Gliwice 1997
-	\bibitem{tcp} Piotr Gaj, \textit{Zastosowanie protokoły TCP/IP do transmisji informacji dla potrzeb przemysłowych systemów kontrolno-nadzorczych. Rozprawa dokotroska.}, Gliwice, 2003
+	\bibitem{tcp} Piotr Gaj, \textit{Zastosowanie protokoły TCP/IP do transmisji informacji dla potrzeb przemysłowych systemów kontrolno-nadzorczych. Rozprawa doktorska.}, Gliwice, 2003
 \end{thebibliography}
 
 \end{document}
