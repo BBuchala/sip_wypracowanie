@@ -341,12 +341,40 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 
 
 	\subsection{Sprawność sieci i jej przepustowość}
+	Znając całkowity czas pojedynczej transakcji danych ze wzoru \textit{(4)}, można przystąpić do wyliczenia wartości określających efektywność czasową przesyłania danych w sieci:
+	\begin{itemize}
+		\item \textbf{Sprawność} wyznacza stosunek czas przesyłu danych do całkowitego przesyłu danych w transakcji. Liczona w procentach.
+		\item \textbf{Przepustowość} pozwala określić maksymalną ilość informacji, jaka zostanie przesłana w jednostce czasu. Liczona w bitach na sekundę.
+	\end{itemize}
 	
+	Wartości te przedstawia się za pomocą poniższych wzorów
+	\begin{equation}
+	\eta = \cfrac{\cfrac{8\cdot n}{V}}{T_{Wi}}   
+	\end{equation}
+	\begin{equation}
+	P = \cfrac{8\cdot n}{T_{Wi}}
+	\end{equation}
 	
+	Gdzie:
+	\begin{itemize}
+		\item nano - sprawność
+		\item P - przepustowość
+		\item n - liczba bajtów danych
+		\item V - szybkość transmisji danych w siecie
+		\item $ T_{Wi} $ - Całkowity czas trwania pojedynczej transkacji danych (wliczająć ramkę żądania)
+	\end{itemize}
 	
+	Ponieważ wartość $ T_{Wi} $ nie jest stałą zdefiniowaną globalnie, a indywidualną dla każdej ramki, wartości obu wielkości można wyrazić za pomocą przedziałów, używając w tym celu minimalnego i maksymalnego czasu trwania transakcji danych. \\
+	W praktyce dość często sprawność i przepustowość obliczana jest po odrzuceniu narzutu czasowego powstałego w wyniku dodatkowych akcji na magistrali, nie będących transmisją danych, m. in. czasu detekcji $ T_{DR} $ czy czasu transmisji tamki żądania $ T_{TR_i} $. W tym celu w miejsce $ T_{Wi} $ podstawiamy równanie ze wzoru \textit{(1)}. Po zamianie uzyskuje się nowe wartości, obejmujące wyłącznie czasu transakcji danych.
 	
+	\begin{equation}
+	\eta = \cfrac{\cfrac{8\cdot n}{V}}{\cfrac{[LZT] \cdot [LBZ]+[BS]}{V}} = \cfrac{8\cdot n}{[LZT] \cdot [LBZ]+[BS]}
+	\end{equation}
+	\begin{equation}
+	P = \cfrac{8\cdot n}{\cfrac{[LZT] \cdot [LBZ]+[BS]}{V}} = \cfrac{8\cdot n \cdot V}{[LZT] \cdot [LBZ]+[BS]}
+	\end{equation}
 	
-	
+	Niezależnie od stosowanego podejścia, sprawność i przepustowość rośnie wraz z długością ramki. Należy jednak pamiętać, że jej zwiększanie niesie ze sobą również skutki uboczne - rośnie czas transmisji oraz cykl przetwarzania (co z kolei zwiększa czas trwania cyklu sieci). \\
 	
 	\subsection{Możliwości optymalizacji}
 	
