@@ -186,19 +186,19 @@ Właściwy proces tworzenia scenariusza wymian jest zależny jedynie od upodoba�
 "Dziury" są negatywnym zjawiskiem w funkcjonowaniu sieci, które objawia się poprzez przerwę w zbiorze stacji. W sieci Master-Slave źródłem dziur może być wyłącznie uszkodzenie stacji abonenckiej lub jej wyłączenie. Ogółem rzecz biorąc, dziury powstają na wskutek nieobecności stacji w sieci. Skutkiem istnienia dziur jest opóźnienie wymiany informacji pomiędzy Masterem, a stacją podrzędną, co może być niebezpieczne z punktu widzenia krytycznych parametrów sieci, m.in. gwarantowanego czasu dostarczenia informacji. Rolą programistów jest zapewnienie takiej konfiguracji, aby dziury powstawały jak najrzadziej.\\
 Prosta topologia sieci Master-Slave oraz nieskomplikowana konfiguracji w postaci scenariusza wymian umożliwiają wykrycie dziur już na wczesnym etapie. Każda wymiana informacji, jaka znajduje się w scenariuszu, jest kierowana wyłącznie do jednego adresata. Jeżeli wystąpi błąd w konfiguracji i wymiana będzie skierowana do nieistniejącego abonenta, zostanie ona wychwycona.\\
 Odłączenie lub uszkodzenie stacji Slave może skutkować opóźnieniem czasu pracy, który jest równy sumie czasu transmisji ramki od Mastera oraz czasu oczekiwania na odpowiedź. Co więcej, może się zdarzyć, że do nieaktywnego odbiorcy wysyłana ramka posiada wiele danych i jest bardzo długa, co dodatkowo opóźnia czas reakcji.\\
-Jednym z mechanizmów umożliwiających minimalizację start czasowych związanych z powstawaniem dziur jest określanie liczby cykli w czasie których stacja odbiorcza nie jest odpytywana. Po zakończeniu wszystkich cykli nawiązywana jest próba połączenia ze stacją. Jeżeli i tym razem odbiorca jest nieaktywny, następuje ponowne wstrzymanie wymian z nim oraz odczekanie wcześniej ustalonej liczby cykli. Ta metoda nosi nazwę "autousuwania" nieobecnego abonenta. Zastosowanie tego rozwiązania zależy już wyłącznie od decyzji programisty, który powinien mieć możliwość włączania i wyłączania mechanizmu autousuwania.
+Jednym z mechanizmów umożliwiających minimalizację strat czasowych związanych z powstawaniem dziur jest określanie liczby cykli w czasie których stacja odbiorcza nie jest odpytywana. Po zakończeniu wszystkich cykli nawiązywana jest próba połączenia ze stacją. Jeżeli i tym razem odbiorca jest nieaktywny, następuje ponowne wstrzymanie wymian z nim oraz odczekanie wcześniej ustalonej liczby cykli. Ta metoda nosi nazwę "autousuwania" nieobecnego abonenta. Zastosowanie tego rozwiązania zależy już wyłącznie od decyzji programisty, który powinien mieć możliwość włączania i wyłączania mechanizmu autousuwania.
 
 \subsection{Parametryzacja wymian}
 Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master. Polega na wprowadzeniu przygotowanego scenariusza wymian oraz uzupełnieniu go wymaganymi informacjami.
 	\subsubsection{Konfiguracja tablicy wymiany}
 	\begin{itemize}
 		\item \textbf{Numer wymiany} - jest to niezbędny parametr aby umożliwić zastosowanie mechanizmu wymian wyzwalanych, które są inicjowane przez aplikację. Liczba wymian w pojedynczym cyklu jest zależna od programisty i w zależności od konkretnej implementacji sieci, może osiągnąć nawet kilkaset.
-		\item \textbf{Numer abonenta} - określa do której ze stacji Slave wymiana jest kierowana
+		\item \textbf{Numer abonenta} - określa do której ze stacji Slave wymiana jest kierowana.
 		\item \textbf{Kod operacji}
-		\item \textbf{Adres pobrania danych} - definiuje miejsce w pamięci jednostki centralnej Master, które będzie źródłem danych
-		\item \textbf{Adres przesłania danych} - definiuje miejsce w jednostce centralnej stacji Slave, gdzie zostaną przekazane dane
+		\item \textbf{Adres pobrania danych} - definiuje miejsce w pamięci jednostki centralnej Master, które będzie źródłem danych.
+		\item \textbf{Adres przesłania danych} - definiuje miejsce w jednostce centralnej stacji Slave, gdzie zostaną przekazane dane.
 		\item \textbf{Liczba danych}
-		\item \textbf{Wybór trybu przesłania} - może być \textit{periodyczny}, czyli wymiana wykonuje się w każdym cyklu pracy sieci, lub \textit{wyzwalany}, czyli wymiana realizowana jest przez program jednostki centralnej
+		\item \textbf{Wybór trybu przesłania} - może być \textit{periodyczny}, czyli wymiana wykonuje się w każdym cyklu pracy sieci, lub \textit{wyzwalany}, czyli wymiana realizowana jest przez program jednostki centralnej.
 		\item \textbf{Autousuwanie} - określa czy przy braku odpowiedzi ze strony abonenta zostaje uruchamiany ten mechanizm. Został opisany w poprzednim podrozdziale.
 		\item \textbf{Adres słowa raportu wymiany z daną stacją}
 	\end{itemize}
@@ -209,8 +209,8 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 		\item Liczba prób nawiązania łączności z abonentem - określa maksymalną liczbę prób nawiązania połączenia w przypadku braku odpowiedzi ze strony stacji Slave. Ma wielki wpływ na przepustowość sieci oraz zjawisko powstawania "dziur" [~\ref{subsec:dziury}~].
 		\item Maksymalna liczba cykli przy braku odpowiedzi - w czasie trwania tych cykli nie będzie prób nawiązania komunikacji ze stacją Slave, którą wykryto jako nieobecną. Ten parametr również został opisany w podrozdziale dotyczącym zjawisko "dziur" [~\ref{subsec:dziury}~].
 		\item Przerwa czasowa między dwiema transakcjami typu "rozgłoszenie" (\emph{broadcast}).
-		\item Czas opóźnienia występujący przed oraz po transmisji ramki
-		\item Czas autoryzacji w przypadku pracy z modemami
+		\item Czas opóźnienia występujący przed oraz po transmisji ramki.
+		\item Czas autoryzacji w przypadku pracy z modemami.
 	\end{itemize}
 	\subsubsection{Parametry globalne}
 	Istnieje pewna część parametrów, które muszą zostać zdefiniowane globalnie, tzn. nadrzędnie dla każdej wymiany w sieci. Wszystkie wymiany muszą pracować zgodnie z nimi aby umożliwić prawidłową pracę sieci.
@@ -220,7 +220,7 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 			\item RTU - transmisję bitową
 			\item ASCII - transmisję znakową
 		\end{itemize}
-		Tryby transmisji nie mogą być mieszane i w czasie trwania transakcji należy zachować tylko jeden z nich,
+		Tryby transmisji nie mogą być mieszane i w czasie trwania transakcji należy zachować tylko jeden z nich. Nie każdy protokół oparty na Master-Slave posiada kilka trybów, np. Magistrala LIN.
 		\item Liczba bitów stopu
 		\item Rodzaj kontroli parzystości
 		\item Liczba bitów definiująca pojedynczy znak transmisji $ L_{BZ} $
