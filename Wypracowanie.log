@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.12.22)  12 FEB 2015 18:09
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (MiKTeX 2.9) (preloaded format=pdflatex 2014.12.22)  12 FEB 2015 20:00
 entering extended mode
 **Wypracowanie.tex
 (C:\Users\Bartłomiej\Desktop\Git\sip\sip_wypracowanie\Wypracowanie.tex
@@ -1080,7 +1080,7 @@ LaTeX Info: Redefining \selectfont on input line 126.
 \RaggedRightParindent=\skip66
 \JustifyingParindent=\skip67
 )
-<./img/logo.png, id=63, 398.2077pt x 398.4486pt>
+<./img/logo.png, id=67, 398.2077pt x 398.4486pt>
 File: ./img/logo.png Graphic file (type png)
  <use ./img/logo.png>
 Package pdftex.def Info: ./img/logo.png used on input line 58.
@@ -1129,7 +1129,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 102--103
 
  []
 
-<./img/wezel.jpg, id=73, 462.12085pt x 346.0817pt>
+<./img/wezel.jpg, id=77, 462.12085pt x 346.0817pt>
 File: ./img/wezel.jpg Graphic file (type jpg)
  <use ./img/wezel.jpg>
 Package pdftex.def Info: ./img/wezel.jpg used on input line 105.
@@ -1182,23 +1182,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 214--216
 
  []
 
-[5] [6] [7] [8] [9] [10] [11]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 433.
- [12]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 433.
+[5] [6] [7] [8] [9] [10]
+Underfull \hbox (badness 10000) in paragraph at lines 426--428
+
+ []
+
+[11] [12]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 437.
+ [13]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 437.
 
 (C:\Users\Bartłomiej\Desktop\Git\sip\sip_wypracowanie\Wypracowanie.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 433.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 433.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 437.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 437.
 Package rerunfilecheck Info: File `Wypracowanie.out' has not changed.
-(rerunfilecheck)             Checksum: 8BDF484E89C87565A1E63E78FA04B67D;3433.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 433.
+(rerunfilecheck)             Checksum: 813025BC059AF1CEEF95D987FE147AD4;3540.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 437.
  ) 
 Here is how much of TeX's memory you used:
- 12281 strings out of 493921
- 172842 string characters out of 3144857
+ 12284 strings out of 493921
+ 172873 string characters out of 3144857
  242593 words of memory out of 3000000
- 15359 multiletter control sequences out of 15000+200000
+ 15360 multiletter control sequences out of 15000+200000
  13570 words of font info for 36 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  29i,10n,35p,884b,473s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -1223,9 +1228,9 @@ public/pl/plr10.pfb><C:/Users/Bartłomiej/AppData/Roaming/MiKTeX/2.9/fonts/type
 pe1/public/pl/plr7.pfb><C:/Users/Bartłomiej/AppData/Roaming/MiKTeX/2.9/fonts/t
 ype1/public/pl/plsy10.pfb><C:/Users/Bartłomiej/AppData/Roaming/MiKTeX/2.9/font
 s/type1/public/pl/plti10.pfb>
-Output written on Wypracowanie.pdf (12 pages, 448771 bytes).
+Output written on Wypracowanie.pdf (13 pages, 450804 bytes).
 PDF statistics:
- 225 PDF objects out of 1000 (max. 8388607)
- 56 named destinations out of 1000 (max. 500000)
- 131 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 234 PDF objects out of 1000 (max. 8388607)
+ 58 named destinations out of 1000 (max. 500000)
+ 139 words of extra memory for PDF output out of 10000 (max. 10000000)
 

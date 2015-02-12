@@ -422,6 +422,10 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 		\item Szczególny przypadek powyższego punktu: jeżeli do jednej stacji podrzędnej wysyłany jest rozkaz zapisu i odczytu, to wpierw należy dokonać odczytu danych, a następnie zapisu. Taka kombinacja jest szybsza o jeden cykl jednostki centralnej Slave'a dla każdej takiej pary.
 	\end{itemize}
 
+\section{\textcolor{blue}{Podsumowanie}}
+Większość współczesnych systemów informatycznych stosowanych w przemyśle ze względu na swój format jest systemami rozproszonymi czasu rzeczywistego. By zapewnić im stabilność działania i brak awarii, należy zagwarantować aby poszczególne fragmenty składające się na całość działania wykonywały się w określonym, ograniczonym czasie. Taki efekt można uzyskać przede wszystkim implementując odpowiedni protokół komunikacji. \\\\
+Jednym z najpopularniejszych i najbardziej efektywnych protokołów spełniających warunek determinizmu czasowego jest Master-Slave, oparty na komunikacji pomiędzy stacją nadrzędną i wieloma stacjami podrzędnymi. Nawet w przypadku pojawienia się stanu niepożądanego ("dziur") dla danej sieci M-S istnieje możliwość obliczenia zdefiniowanego czasu transakcji posiadając informację o ilości i czasie repetycji żądania. Większość logiki jest realizowana po stronie stacji nadrzędnej, dlatego w celu optymalizacji czasowej w pierwszej kolejności tam należy wykonać usprawnienia.
+
 
 \newpage
 \begin{thebibliography}{2}
