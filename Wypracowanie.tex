@@ -118,10 +118,42 @@ Rolę węzła systemu rozproszonego najczęściej pełni sterownik swobodnie pro
 
 W dalszej części wypracowania skupimy się głównie na protokole transmisji.
 
+\section{\textcolor{blue}{Determinizm czasowy w sieciach przemysłowych}}
+
+Poprzez \textbf{determinizm} działania obiektu (w naszym przypadku węzła sieci) rozumiemy, że dla każdej kombinacji stanu poprzedniego oraz zdarzenia pojawiającego się z zewnątrz, węzeł ten posiada zdefiniowany, jednoznaczny stan pracy. \\
+\textbf{Determinizm czasowy} definiujemy jako zgodne z działaniem deterministycznym reakcje obiektu w określonym i skończonym czasie. \\
+Można wyróżnić dwa różne rodzaje determinizmu czasowego:
+\begin{itemize}
+	\item Określony ściśle (ostry), gdzie po upływie określonego czasu od zdarzenia inicjującego $ T_G $ następuje określona reakcja.
+	\item Ograniczony granicznie (nieostry) - tutaj reakcja następuje nie później niż do okreslonego czasu $ T_G $.
+\end{itemize}
+Zależności te można wyrazić poniższymi wzorami:
+\begin{itemize}
+	\item Determinizm czasowy ściśle określony:
+	\begin{equation}
+	T_{OS} = T_G
+	\end{equation}
+	\item Determinizm czasowy granicznie określony
+	\begin{equation}
+	T_{OS} \leq T_G
+	\end{equation}
+	\item Dodatkowo:
+	\begin{equation}
+	T_{OS} = T_R + T_O
+	\end{equation}
+\end{itemize}
+Gdzie
+\begin{itemize}
+	\item $ T_{OS} $ - czas obsługi sieciowej zdarzenia
+	\item $ T_G $ - czas graniczny obsługi
+	\item $ T_R $ - czas reakcji na zdarzenie
+	\item $ T_O $ - czas właściwej obsługi zdarzenia
+\end{itemize}
+Determinizm czasowy nie wymaga stuprocentowej niezawodności podczas przekazywania danych. Za poprawną pracę sieci przyjmuje się wtedy sytuację, kiedy nie dochodzi do wystąpienia stanu awaryjnego (zarówno z logicznego, jak i fizycznego punktu widzenia). Najistotniejsze jest, aby czas dostępu do pamięci został obarczony krytycznym czasem granicznym.\\
 
 \section{\textcolor{blue}{Rodzaje protokołów stosowane w sieciach przemysłowych}}
 
-Ponieważ rozproszona sieć przemysłowa czasu rzeczywistego powinna się charakteryzować skończonym czasem przekazywania danych, będą nas interesować jedynie protokoły o zdefiniowanym (deterministycznym) w czasie dostępie. Determinizm czasowy nie wymaga stuprocentowej niezawodności podczas przekazywania danych. Za poprawną pracę sieci przyjmuje się wtedy sytuację, kiedy nie dochodzi do wystąpienia stanu awaryjnego (zarówno z logicznego, jak i fizycznego punktu widzenia). Naistotniejsze jest, aby czas dostępu do pamięci został obarczony krytycznym czasem granicznym.\\
+Ponieważ rozproszona sieć przemysłowa czasu rzeczywistego powinna się charakteryzować skończonym czasem przekazywania danych, będą nas interesować jedynie protokoły o zdefiniowanym (deterministycznym) w czasie dostępie. \\
 Współcześnie można wyróżnić tylko 3 rodzaje protokołów, które spełniają powyższy warunek:
 \begin{itemize}
 	\item Token
@@ -395,6 +427,7 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 \begin{thebibliography}{2}
 	\bibitem{Hab} Andrzej Kwiecień, \textit{Analiza przepływu informacji w komputerowych sieciach przemysłowych}, Gliwice 2002
 	\bibitem{RS} Wojciech Mielczarek, \textit{Szeregowe interfejsy cyfrowe}, Helion, Gliwice 1997
+	\bibitem{tcp} Piotr Gaj, \textit{Zastosowanie protokoły TCP/IP do transmisji informacji dla potrzeb przemysłowych systemów kontrolno-nadzorczych. Rozprawa dokotroska.}, Gliwice, 2003
 \end{thebibliography}
 
 \end{document}
