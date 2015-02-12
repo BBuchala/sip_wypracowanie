@@ -7,7 +7,7 @@
 
 \usepackage[unicode, bookmarks=true]{hyperref} %do zakładek
 \usepackage{tabto} % do tabulacji
-\NumTabs{6} % globalne ustawienie wielkosci tabulacji
+\NumTabs{11} % globalne ustawienie wielkosci tabulacji
 \usepackage{array}
 \usepackage{multirow}
 \usepackage{array}
@@ -206,8 +206,8 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 	Dla każdej wymiany z osobna należy wypełnić jej tablice parametrów, na którą składają się m.in.:
 	\begin{itemize}
 		\item Maksymalny czas oczekiwania na odpowiedź od stacji Slave $ T_{OD} $ - bardzo ważny parametr, którego wartość powinna być wynikiem dokładnej analizy obciążenia sieci (w szczególności czas pracy abonenta oraz czas trwania cyklu jego jednostki centralnej $ T_{A} $).
-		\item Liczba prób nawiązania łączności z abonentem - określa maksymalną liczbę prób nawiązania połączenia w przypadku braku odpowiedzi ze strony stacji Slave. Ma wielki wpływ na przepustowość sieci oraz zjawisko powstawania "dziur" [~\ref{subsec:dziury}].
-		\item Maksymalna liczba cykli przy braku odpowiedzi - w czasie trwania tych cykli nie będzie prób nawiązania komunikacji ze stacją Slave, którą wykryto jako nieobecną. Ten parametr również został opisany w podrozdziale dotyczącym zjawisko "dziur" [~\ref{subsec:dziury}].
+		\item Liczba prób nawiązania łączności z abonentem - określa maksymalną liczbę prób nawiązania połączenia w przypadku braku odpowiedzi ze strony stacji Slave. Ma wielki wpływ na przepustowość sieci oraz zjawisko powstawania "dziur" [~\ref{subsec:dziury}~].
+		\item Maksymalna liczba cykli przy braku odpowiedzi - w czasie trwania tych cykli nie będzie prób nawiązania komunikacji ze stacją Slave, którą wykryto jako nieobecną. Ten parametr również został opisany w podrozdziale dotyczącym zjawisko "dziur" [~\ref{subsec:dziury}~].
 		\item Przerwa czasowa między dwiema transakcjami typu "rozgłoszenie" (\emph{broadcast}).
 		\item Czas opóźnienia występujący przed oraz po transmisji ramki
 		\item Czas autoryzacji w przypadku pracy z modemami
@@ -226,14 +226,132 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 		\item Liczba bitów definiująca pojedynczy znak transmisji $ L_{BZ} $
 		\item Szybkość transmisji $ V $
 	\end{itemize}
+\newpage
+	\subsection{Zjawiska zachodzące pomiędzy koprocesorem, a jednostką centralną}
+	Analiza procesów zachodzących na styku "koprocesor - jednostka centralna" jest naturalną koniecznością wynikającą z programowania i parametryzacji wymian w sieci. Jest to niezbędne aby precyzyjnie wyznaczyć dwa bardzo istotne parametry związane z konfiguracją sieci:
+	\begin{itemize}
+		\item $ T_{OD} $ - czas oczekiwania stacji Master na odpowiedź od stacji Slave
+		\item $ T_{GOT} $ - czas oczekiwania na gotowość jednostki centralnej stacji Slave
+	\end{itemize}
+	W pierwszej kolejności należy określić parametr $ T_{GOT} $, który ma umożliwić stacji Slave spokojne wykonanie powierzonych jej zadań. Parametr ten może zostać ustawiony albo globalnie dla wszystkich stacji Slave, albo lokalnie dla każdej z nich. Wówczas każdy z abonentów posiada indywidualną wartość $ T_{GOT_j} $, zależną od jego potrzeb. Sam parametr można zdefiniować następującym wzorem (indeks dolny \emph{i} oznacza parametr stacji Master, natomiast \emph{j} parametr jednej ze stacji Slave):
+	$$ T_{GOT_j} = T_{DR} + \max{(T_{AR_j})} + \max{( T_{A_j} )} + \max{( T_{PR_j} )} $$
+	Gdzie:
+	\begin{itemize}
+		\item $ T_{DR} $ \tab\tab{- czas detekcji ramki}
+		\item $ \max{(T_{AR_j})} $ \tab{- maksymalny czas analizy ramki}
+		\item $ \max{( T_{A_j} )} $ \tab{- maksymalny czas trwania cyklu pracy w stacji Slave}
+		\item $ \max{( T_{PR_j} )} $ \tab{- maksymalny czas przygotowania ramki odpowiedzi przez stację Slave}
+	\end{itemize}
+	Innymi słowy, największy dopuszczalny parametr $ T_{GOT} $ oznacza maksymalny czas jaki jest potrzebny co najmniej jednej ze stacji Slave na wykrycie ramki od stacji Master, jej poprawne przetworzenie i udzielenie odpowiedzi.\\
+	W drugiej kolejności należy określić parametr $ T_{OD} $, który powinien być większy od największej wartości $ T_{GOT} $ i jednocześnie powiększony o czas wykonywania wszystkich czynności niezbędnych do wysłania ramki żądania z stacji Master oraz odebrania ramki odpowiedzi ze stacji Slave. Możemy zatem $ T_{OD} $ zdefiniować następująco:
+	$$ T_{OD}=\max{(T_{GOT_j}+ T_{PR_i}+T_{TR_i}+T_{TR_j}+T_{DR}+T_{AR_i}+T_{A_i})} $$
+	Gdzie:
+	\begin{itemize}
+		\item $ T_{GOT_j} $ \tab{- największy czas $ T_{GOT} $ spośród czasów stacji Slave}
+		\item $ T_{PR_i} $ \tab{- czas przygotowania ramki żądania}
+		\item $ T_{TR_i} $ \tab{- maksymalny czas transmisji ramki żądania}
+		\item $ T_{TR_j} $ \tab{- maksymalny czas transmisji ramki odpowiedzi o największej możliwej długości}
+		\item $ T_{DR} $ \tab{- czas detekcji ramki odpowiedzi}
+		\item $ T_{AR_i} $ \tab{- maksymalny czas analizy ramki odpowiedzi}
+		\item $ T_{A_i} $ \tab{- maksymalny czas trwania cyklu pracy w stacji Master}
+	\end{itemize}
+	Zastosowanie powyższych wzorów daje gwarancję, że w sieci Master - Slave każda transakcja zostanie poprawnie wykonana, jednak wartości te będą wpisane odgórnie oraz, ponieważ uwzględniają najgorsze możliwe przypadki, transakcje, które mogłyby wykonać się krócej, będą trwać tak samo długo jak inne. Czas ten można zmniejszyć posługują się mechanizmem autousuwania, ale należy korzystać z niego z rozwagą.
+\newpage
+	\subsection{Czas trwania cyklu sieci}
+	Jest to niezwykle ważny parametr, który określa czas nadawania pomiędzy stacjami, jak również możliwości sieci do wykonywania określonych zadań.\\
+	Aby móc przystąpić do określenia tego czasu potrzebne są pewne założenia i uproszczenia:
+	\begin{itemize}
+		\item W omawianej sieci nie występuje zjawisko "dziur" [~\ref{subsec:dziury}~]
+		\item Znany jest scenariusz wymian - w sieci istnieje \emph{N} wymian
+		\item Znane są długości wszystkich ramek
+	\end{itemize}
+	Przystępujemy zatem do analizy naszej sieci:
+	\begin{enumerate}
+		\item Czas transmisji pojedynczej ramki
+		\begin{equation}
+			T_{TR}=\cfrac{[LZT] \cdot [LBZ]+[BS]}{V}
+		\end{equation}
+		Gdzie:
+		\begin{itemize}
+			\item \emph{LZT} \tab{- liczba znaków transmisji}
+			\item \emph{LBZ} \tab{- liczba bitów w pojedynczym znaku}
+			\item \emph{BS} \tab{- liczba bitów sterujących}
+			\item \emph{V} \tab{- prędkość transmisji transmisji}
+		\end{itemize}
+		\item Czas transmisji ramki żądania wysyłanej przez stację Master
+		\begin{equation}
+			T_{TR_i}=\cfrac{[LZT_i] \cdot [LBZ]+[BS]}{V}
+		\end{equation}
+		\item Czas transmisji ramki odpowiedzi wysyłanej przez stację Slave
+		\begin{equation}
+			T_{TR_j}=\cfrac{[LZT_j] \cdot [LBZ]+[BS]}{V}
+		\end{equation}
+		\item Z tymi danymi można przystąpić do obliczenia czasu pojedynczej wymiany, która jest równa sumie czasów wysłania i wykonania żądania, przesłania i odebrania odpowiedzi oraz analizy i wpisu wyniku transakcji:
+		\begin{equation}
+			T_{W_{i}} = \underbrace{T_{PR_i} + T_{TR_i}}_{T_{Zi}} +
+			\underbrace{T_{DR}+T_{AR_j}+T_{A_j}+T_{PR_j}+T_{TR_j}}_{T_{T_{Oj}}} + 
+			\underbrace{T_{DR}+T_{AR_i}+T_{A_i}}_{T_{RA_i}}
+		\end{equation}
+		Gdzie:
+		\begin{itemize}
+			\item $ T_{Zi} $ \tab{- czas emisji żądania, składa się z czasów przygotowania i transmisji ramki żądania}
+			\item $ T_{Oj} $ \tab{- czas emisji odpowiedzi, składa się z czasów detekcji i analizy ramki żądania, przygotowania i transmisji ramki odpowiedzi oraz czasu oczekiwania na sygnał końca dla stacji Slave}
+			\item $ T_{RA_i} $ \tab{- czas analizy i wpisu wyniku wymiany, składa się z czasów wykrycia i analizy ramki oraz czasu oczekiwania na sygnał końca dla stacji Master}
+		\end{itemize}
+		\item Teraz wystarczy ten czas przenieść na wykonania \emph{N} wymian w sieci:
+		\begin{align}
+			T_{CW} &= \sum_{i=1}^{N}{T_{W_i}}=
+			\sum_{i=1}^{N}{{T_{PR_i} + T_{TR_i}}} + 
+		 	\sum_{i=j}^{N}{T_{AR_j}+T_{A_j}+T_{PR_j}+T_{TR_j}} \nonumber \\
+			&\qquad {} + \sum_{i=1}^{N}{T_{AR_i}+T_{A_i}} +
+			2\cdot N\cdot T_{DR}
+		\end{align}
+		\item Powyższy czas może się zwiększyć jeżeli w sieci będą występować "dziury", które skutkują powtarzaniem wymian (repetycji). Dla $ N_R $ powtarzanych transmisji w całym scenariuszu wymian (realizacja wymian periodycznych) w najgorszym możliwym przypadku dodatkowy czas wyniesie:
+		\begin{equation}
+			T_{REP} = \sum_{i=1}^{N}{N_{R_i}\cdot T_{TR_i}+N_R\cdot T_{OD_i}}
+		\end{equation}
+		Gdzie:
+		\begin{itemize}
+			\item $ T_{TR_i} $ \tab{- czas transmisji żądania dla \emph{i}-tego powtórzenia}
+			\item $ N_{R_i} $ \tab{- liczba powtórzeń do \emph{i}-tego abonenta}
+			\item $ N $ \tab{- liczba abonentów}
+			\item $ T_{OD_i} $ \tab{- czas czekania na odpowiedź przez stację Master}
+		\end{itemize}
+		\item Zatem łączny czas trwania cyklu powiększony o czas realizacji repetycji jest równy:
+		\begin{equation}
+			T_{W_{MAX}}=T_{CW}+T_{REP}
+		\end{equation}
+		\item Na koniec należy jeszcze uwzględnić realizację wymian wyzwalanych. Ten kolejny dodatkowy czas jest całkowicie zależny od rozwiązań firmowych - należy znać liczbę wymian wyzwalanych oraz postacie ich funkcji.\\
+		Zakładając, że w sieci realizowana jest tylko jeden rodzaj wymiany wyzwalanej oraz w jednym cyklu pracy zostanie zrealizowanych $ N_W $ takich wymian, czas zwiększy się dokładnie o $ N_W $ cykli aplikacji, które je uruchomiła. Wówczas czas zwiększa się o:
+		\begin{equation}
+			T_{WW} = N_W\cdot T_{A_j} + \sum_{i=1}^{N_W}{T_{W_i}}
+		\end{equation}
+		Gdzie:
+		\begin{itemize}
+			\item $ T_{A_j} $ \tab{- czas oczekiwania na sygnał końca dla stacji Slave}
+			\item $ T_{W_i} $ \tab{- czas wykonania \emph{i}-tej wymiany wyzwalanej}
+		\end{itemize}
+		\item Ostatecznie wzór na czas trwania cyklu sieci przyjmuje postać:
+		\begin{equation}
+			T_{W_{MAX}}=T_{CW}+T_{REP}+T_{WW}
+		\end{equation}
+		Gdzie $ T_{CW} $ oznacza czas trwania cyklu dla bezbłędnie działającej sieci, a $ T_{REP} $ oraz $ T_{WW} $ określają potencjalny nakład czasowy.
+	\end{enumerate}
+
+
+
+	\subsection{Sprawność sieci i jej przepustowość}
 	
-
-
-
-
-
-
-
+	
+	
+	
+	
+	
+	
+	\subsection{Możliwości optymalizacji}
+	
+	
+	
 
 
 \newpage
