@@ -71,7 +71,11 @@
 			% Author and supervisor
 			\textsc{\Large Autorzy:} \\
 			Bartłomiej Buchała \\
-			Mateusz Forczmański\\
+			Mateusz Forczmański \\
+			[1.0cm]
+			Informatyka, semestr V \\
+			Rok akademicki 2014/2015 \\
+			Grupa 3
 			
 			\vfill
 			
@@ -87,19 +91,19 @@
 
 Wraz z rozwojem informatyki, znalazła ona szerokie zastosowanie w różnych gałęziach przemysłu.  Zastosowanie systemu informatycznego niesie ze sobą wiele korzyści, m. in: \\
 \begin{itemize}
-	\item Automatyzacja wykonywanych czynności \\
+	\item Automatyzację wykonywanych czynności \\
 	\item Przyspieszenie obliczeń \\
-	\item Autokorekcja w przypadku, kiedy dojdzie do częściowej awarii systemy \\
+	\item Autokorekcję w przypadku, kiedy dojdzie do częściowej awarii systemu \\
 \end{itemize}
 
-Przy stosunkowo niewielkim koszcie (zaprojektowanie, zaprogramowanie, instalacja takiego systemu),   problem pojawił się przy dalszej rozbudowie branży przemysłowej (co dla części informatycznej oznaczało przede wszystkim rosnącą złożoność obliczeniową zastosowanych algorytmów czy większą liczbę urządzeń do obsłużenia). Dodatkowo, pewnym utrudnieniem jest mniejsza w ostatnich latach dynamika rozwoju mocy obliczeniowej pojedynczych komputerów, co jest związane ze zbliżaniem się do pułapu miniaturyzacji elementów. Remedium na ten problem okazało się zastosowanie \textbf{systemów rozproszonych czasu rzeczywistego.} \\
+Koszt (zaprojektowanie, zaprogramowanie, instalacja takiego systemu) jest stosunkowo niewielki. Problem pojawił się przy dalszej rozbudowie branży przemysłowej. Dla części informatycznej oznaczało to przede wszystkim rosnącą złożoność obliczeniową zastosowanych algorytmów czy większą liczbę urządzeń do obsłużenia. Dodatkowo, pewnym utrudnieniem jest mniejsza w ostatnich latach dynamika rozwoju mocy obliczeniowej pojedynczych komputerów, co jest związane ze zbliżaniem się do pułapu miniaturyzacji elementów. Remedium na ten problem okazało się zastosowanie \textbf{systemów rozproszonych czasu rzeczywistego.} \\
 
-Dla systemu czasu rzeczywistego, oprócz warunków logicznych, ważne jest również spełnienie warunków czasowych. Oznacza to, że oprócz poprawnych rezultatów musi on również zapewnić ich wykonanie w odpowiednim czasie. Można wyróżnić systemy czasu rzeczywistego, które tolerują przekroczenie ograniczeń czasowych (interwału czasowego), i takie dla których czas operacji jest wartością krytyczną. \\
+Dla systemu czasu rzeczywistego, oprócz warunków logicznych, ważne jest także spełnienie warunków czasowych. Oznacza to, że oprócz poprawnych rezultatów musi on również zapewnić ich wykonanie w odpowiednim czasie. Można wyróżnić systemy czasu rzeczywistego, które tolerują przekroczenie ograniczeń czasowych (interwału czasowego), i takie, dla których czas operacji jest wartością krytyczną. \\
 
-Podstawową cechą systemów rozproszonych jest fakt, że jest to zbiór niezależnych od siebie komputerów (lub rzadziej procesorów, jeżeli mówimy o komputerach wieloprocesorowych), połączonych siecią komputerową. Posiadają one wspólne oprogramowanie, które pozwala im na współdziałanie (podział zasobów, współbieżne wykonywanie obliczeń) w określonym przez twórcę celu. Komputery będące elementami większego systemu rozproszonego najczęściej nazywa się \textbf{węzłami}. Aby zapewnić poprawną pracę, wymagana jest odpowiednia komunikacja między węzłami.
+Podstawową cechą systemów rozproszonych jest fakt, że jest to zbiór niezależnych od siebie komputerów (lub rzadziej procesorów, jeżeli mówimy o komputerach wieloprocesorowych) połączonych siecią komputerową. Posiadają one wspólne oprogramowanie, które pozwala im na współdziałanie (podział zasobów, współbieżne wykonywanie obliczeń) w określonym przez twórcę celu. Komputery będące elementami większego systemu rozproszonego najczęściej nazywa się \textbf{węzłami}. Aby zapewnić poprawną pracę, wymagana jest odpowiednia komunikacja między węzłami.
 
 \section{\textcolor{blue}{Struktura węzła w sieci przemysłowej}}
-Rolę węzła systemu rozproszonego najczęściej pełni sterownik swobodnie programowalny (PLC) lub grupa takich sterowników. PLC jest uniwersalnym urządzeniem mikroprocesorowym, którego zadaniem jest sterowanie maszyną lub urządzeniem technicznym. Realizuje on program znajdujący się w jego pamięci operacyjnej. Ponieważ węzeł jest elementem większej sieci, samo PLC nie wystarcza. Zazwyczaj pojedynczy moduł ma budowę trójwarstwową: \\
+Rolę węzła systemu rozproszonego pełni najczęściej sterownik swobodnie programowalny (PLC) lub grupa takich sterowników. PLC jest uniwersalnym urządzeniem mikroprocesorowym, którego zadaniem jest sterowanie maszyną lub urządzeniem technicznym. Realizuje on program znajdujący się w jego pamięci operacyjnej. Ponieważ węzeł jest elementem większej sieci, samo PLC nie wystarcza. Zazwyczaj pojedynczy moduł ma budowę trójwarstwową: \\
 
 \begin{center}
 	\includegraphics[width=8cm]{./img/wezel.jpg}
@@ -109,8 +113,8 @@ Rolę węzła systemu rozproszonego najczęściej pełni sterownik swobodnie pro
 	\item Przez \textbf{aplikację} rozumiemy znajdujący się w sterowniku PLC system operacyjny czasu rzeczywistego oraz program cyklicznie realizujący określone przez programistę założenia. Ten poziom odpowiada za faktyczną pracę urządzenia i jest częściowo niezależny od innych węzłów systemu. \\
 	\item \textbf{Koprocesor} jest elementem pracującym niezależnie od głównego procesora urządzenia. Jest on odpowiedzialny za komunikację pomiędzy macierzystym układem, a siecią. Posiada dwa zastosowania: 
 	\begin{itemize}
-		\item \textit{Nadawanie} – otrzymując informacje od procesora głównego,  kopiuje ona odpowiednie fragmenty pamięci do buforów nadawczych, następnie transformuje je do odpowiedniej formy (ramki transmisyjne), po czym wysyła je przy użyciu nadajnika (portu UART) \\
-		\item \textit{Odbieranie} – przechwytuje informacje z sieci skierowane do tego węzła i dekoduje je do formy mogącej być odczytaną przez sterownik. Po tym następuje skopiowanie treści do bufora odbiorczego i przepisanie do pamięci urządzenia 
+		\item \textit{Nadawanie} – otrzymując informacje od procesora głównego,  kopiuje ona odpowiednie fragmenty pamięci do buforów nadawczych, następnie transformuje je do odpowiedniej formy (ramki transmisyjnej), po czym wysyła je przy użyciu nadajnika (portu UART). \\
+		\item \textit{Odbieranie} – przechwytuje informacje z sieci skierowane do tego węzła i dekoduje je do formy mogącej być odczytaną przez sterownik. Po tym następuje skopiowanie treści do bufora odbiorczego i przepisanie do pamięci urządzenia.
 	\end{itemize}
 	\item \textbf{Protokół transmisji} jest ściśle związany z koprocesorem sieci. Jest zbiorem zasad, na jakich odbywa się połączenie pomiędzy dwoma lub więcej węzłami w sieci. Dzięki temu możliwa jest komunikacja sterowników działających na różnym oprogramowaniu.\\
 	
@@ -125,7 +129,7 @@ Poprzez \textbf{determinizm} działania obiektu (w naszym przypadku węzła siec
 Można wyróżnić dwa różne rodzaje determinizmu czasowego:
 \begin{itemize}
 	\item Określony ściśle (ostry), gdzie po upływie określonego czasu od zdarzenia inicjującego $ T_G $ następuje określona reakcja.
-	\item Ograniczony granicznie (nieostry) - tutaj reakcja następuje nie później niż do okreslonego czasu $ T_G $.
+	\item Ograniczony granicznie (nieostry) - tutaj reakcja następuje nie później niż do określonego czasu $ T_G $.
 \end{itemize}
 Zależności te można wyrazić poniższymi wzorami:
 \begin{itemize}
@@ -153,37 +157,37 @@ Determinizm czasowy nie wymaga stuprocentowej niezawodności podczas przekazywan
 
 \section{\textcolor{blue}{Rodzaje protokołów stosowane w sieciach przemysłowych}}
 
-Ponieważ rozproszona sieć przemysłowa czasu rzeczywistego powinna się charakteryzować skończonym czasem przekazywania danych, będą nas interesować jedynie protokoły o zdefiniowanym (deterministycznym) w czasie dostępie. \\
+Ponieważ rozproszona sieć przemysłowa czasu rzeczywistego powinna się charakteryzować skończonym czasem przekazywania danych, będą nas interesować jedynie protokoły o zdefiniowanym (deterministycznym) w czasie dostępie. \\\\
 Współcześnie można wyróżnić tylko 3 rodzaje protokołów, które spełniają powyższy warunek:
 \begin{itemize}
 	\item Token
 	\item Master - Slave
 	\item Producent - Dystrybutor - Konsument (PDK)
 \end{itemize}
-Pierwsze dwa protokoły posiadają wiele implementacji i zastosowań, z kolei trzeci z nich jest dość świeży. Wszystkie inne rodzaje protokołów spełniające warunek deterministyczny są pochodnymi lub hybrydami powyższych modeli. \\
-Protokół z użyciem Tokena polega na przesyłaniu informacji między równorzędnymi stacjami, posiadającymi dostęp do wspólnej magistrali. Aby zapewnić brak kolizji (sytuacji, w których więcej niż jedna stacja zapisuje dane), stosuje się tzw. żeton (z ang. \textit{Token}). Jest to specjalny rodzaj informacji krążący po sieci od jednej stacji do do drugiej. Odczytanie Tokenu przez węzeł powoduje jej uprzywilejowanie, co w praktyce oznacza prawo do transmisji ramek z danymi. Jednak aby zachować prawo determinizmu czasowego, prawo do zapisu trwa określony czas, a po jego upływie węzeł musi bezwględnie przekazać żeton następnemu użytkownikowi. Token wykorzystywany jest między innymi w protokołach typu Token-Ring (pierścieniowa budowa sieci) i Token-Bus (pojedyncza magistrala, w praktyce konfiguracja gwiazdy). \\
+Pierwsze dwa protokoły posiadają wiele implementacji i zastosowań, z kolei trzeci z nich jest dość świeży. Wszystkie inne rodzaje protokołów spełniające warunek deterministyczny są pochodnymi lub hybrydami powyższych modeli. \\\\
+Protokół z użyciem Tokena polega na przesyłaniu informacji między równorzędnymi stacjami, posiadającymi dostęp do wspólnej magistrali. Aby zapewnić brak kolizji (sytuacji, w których więcej niż jedna stacja zapisuje dane), stosuje się tzw. żeton (z ang. \textit{Token}). Jest to specjalny rodzaj informacji krążący po sieci od jednej stacji do drugiej. Odczytanie Tokenu przez węzeł powoduje jego uprzywilejowanie, co w praktyce oznacza prawo do transmisji ramek z danymi. Jednak aby zachować prawo determinizmu czasowego, prawo do zapisu trwa określony czas, a po jego upływie węzeł musi bezwględnie przekazać żeton następnemu użytkownikowi. Token wykorzystywany jest między innymi w protokołach typu Token-Ring (pierścieniowa budowa sieci) i Token-Bus (pojedyncza magistrala, w praktyce konfiguracja gwiazdy). \\\\
 Model PDK bazuje na podziale stacji na 3 rodzaje abonentów: producentów, dystrybutorów oraz konsumentów. "Producent" pełni tu rolę nadawcy: "produkuje" dane, które zostaną użyte przez inne stacje. "Dystrybutor" jest pośrednikiem - jego zadaniem jest transfer danych od producenta (lub wielu producentów) do konsumentów. Dystrybutor przechowuje scenariusz wymian i na jego podstawie określa, kiedy dana informacja ma trafić do sieci. W trakcie podejmowania decyzji, gdzie trafić mają dane pod uwagę brane są średnia konsumpcja oraz aktualne obciążenie konsumentów. "Konsument" to stacja będąca punktem końcowych dla danych, gdzie są one odczytywane i odpowiednio używane. Protokół ten jest używany np. w sieci FIP.
 
 
 \section{\textcolor{blue}{Sieci o dostępie typu Master-Slave}}
 Protokół Master-Slave jest prostą metodą dostępu ze względu na narzucone w niej ograniczenia i sztywne reguły transmisji:
 \begin{itemize}
-	\item Wymiana informacji jest dopuszczalna jedynie pomiędzy wybraną stację nadrzędną, zwaną Master, a jedną ze stacji podrzędnych, zwanymi Slave
-	\item Tylko stacja Master może inicjować transakcje
+	\item Wymiana informacji jest dopuszczalna jedynie pomiędzy wybraną stacją nadrzędną, zwaną Master, a jedną ze stacji podrzędnych, zwanymi Slave.
+	\item Tylko stacja Master może inicjować transakcje.
 	\item Dwa rodzaje transmisji:
 	\begin{itemize}
 		\item \textbf{Zapytanie - Odpowiedź}: polega na wymienia informacji pomiędzy Masterem, a wybraną, konkretną stacją Slave. W tym procesie uczestniczy żądanie (zdefiniowany rozkaz) oraz odpowiedź od Slave.
 		\item \textbf{Rozgłoszenie}: żądanie jest wysyłane do wszystkich jednostek Slave w sieci, a Master nie oczekuje od nich odpowiedzi.
 	\end{itemize}
-	\item Ograniczona liczba rozkazów jaką może realizować Master, czyli ściśle określony zbiór dopuszczalnych wymian
-	\item Wymiany informacji odbywają się cyklicznie i nie wymagają ani wstrzymania sieci, ani jej ponownego uruchomienia
+	\item Ograniczona liczba rozkazów jaką może realizować Master, czyli ściśle określony zbiór dopuszczalnych wymian.
+	\item Wymiany informacji odbywają się cyklicznie i nie wymagają ani wstrzymania sieci, ani jej ponownego uruchomienia.
 \end{itemize}
 Powyższe własności sieci Master-Slave niosą ze sobą wiele zalet:
 \begin{itemize}
-	\item Niskie wymagania z punktu widzenia oprogramowania
-	\item Łatwa konfiguracja sieci
+	\item Niskie wymagania z punktu widzenia oprogramowania.
+	\item Łatwa konfiguracja sieci.
 	\item Konieczność oprogramowania sprowadza się wyłącznie do koprocesora stacji Master. Stacje Slave mogą wykonywać polecenie sprzętowo, bez konieczności programowania.
-	\item Szybkie uruchomienie systemu komunikacyjnego
+	\item Szybkie uruchomienie systemu komunikacyjnego.
 \end{itemize}
 
 
@@ -216,9 +220,9 @@ Właściwy proces tworzenia scenariusza wymian jest zależny jedynie od upodoba�
 
 \subsection{Dziury w sieci Master - Slave}
 \label{subsec:dziury}
-"Dziury" są negatywnym zjawiskiem w funkcjonowaniu sieci, które objawia się poprzez przerwę w zbiorze stacji. W sieci Master-Slave źródłem dziur może być wyłącznie uszkodzenie stacji abonenckiej lub jej wyłączenie. Ogółem rzecz biorąc, dziury powstają na wskutek nieobecności stacji w sieci. Skutkiem istnienia dziur jest opóźnienie wymiany informacji pomiędzy Masterem, a stacją podrzędną, co może być niebezpieczne z punktu widzenia krytycznych parametrów sieci, m.in. gwarantowanego czasu dostarczenia informacji. Rolą programistów jest zapewnienie takiej konfiguracji, aby dziury powstawały jak najrzadziej.\\
-Prosta topologia sieci Master-Slave oraz nieskomplikowana konfiguracji w postaci scenariusza wymian umożliwiają wykrycie dziur już na wczesnym etapie. Każda wymiana informacji, jaka znajduje się w scenariuszu, jest kierowana wyłącznie do jednego adresata. Jeżeli wystąpi błąd w konfiguracji i wymiana będzie skierowana do nieistniejącego abonenta, zostanie ona wychwycona.\\
-Odłączenie lub uszkodzenie stacji Slave może skutkować opóźnieniem czasu pracy, który jest równy sumie czasu transmisji ramki od Mastera oraz czasu oczekiwania na odpowiedź. Co więcej, może się zdarzyć, że do nieaktywnego odbiorcy wysyłana ramka posiada wiele danych i jest bardzo długa, co dodatkowo opóźnia czas reakcji.\\
+"Dziury" są negatywnym zjawiskiem w funkcjonowaniu sieci, które objawia się poprzez przerwę w zbiorze stacji. W sieci Master-Slave źródłem dziur może być wyłącznie uszkodzenie stacji abonenckiej lub jej wyłączenie. Ogółem rzecz biorąc, dziury powstają na wskutek nieobecności stacji w sieci. Skutkiem istnienia dziur jest opóźnienie wymiany informacji pomiędzy Masterem, a stacją podrzędną, co może być niebezpieczne z punktu widzenia krytycznych parametrów sieci, m.in. gwarantowanego czasu dostarczenia informacji. Rolą programistów jest zapewnienie takiej konfiguracji, aby dziury powstawały jak najrzadziej.\\\\
+Prosta topologia sieci Master-Slave oraz nieskomplikowana konfiguracji w postaci scenariusza wymian umożliwiają wykrycie dziur już na wczesnym etapie. Każda wymiana informacji, jaka znajduje się w scenariuszu, jest kierowana wyłącznie do jednego adresata. Jeżeli wystąpi błąd w konfiguracji i wymiana będzie skierowana do nieistniejącego abonenta, zostanie ona wychwycona.\\\\
+Odłączenie lub uszkodzenie stacji Slave może skutkować opóźnieniem czasu pracy, który jest równy sumie czasu transmisji ramki od Mastera oraz czasu oczekiwania na odpowiedź. Co więcej, może się zdarzyć, że do nieaktywnego odbiorcy wysyłana ramka posiada wiele danych i jest bardzo długa, co dodatkowo opóźnia czas reakcji.\\\\
 Jednym z mechanizmów umożliwiających minimalizację strat czasowych związanych z powstawaniem dziur jest określanie liczby cykli w czasie których stacja odbiorcza nie jest odpytywana. Po zakończeniu wszystkich cykli nawiązywana jest próba połączenia ze stacją. Jeżeli i tym razem odbiorca jest nieaktywny, następuje ponowne wstrzymanie wymian z nim oraz odczekanie wcześniej ustalonej liczby cykli. Ta metoda nosi nazwę "autousuwania" nieobecnego abonenta. Zastosowanie tego rozwiązania zależy już wyłącznie od decyzji programisty, który powinien mieć możliwość włączania i wyłączania mechanizmu autousuwania.
 
 \subsection{Parametryzacja wymian}
@@ -231,7 +235,7 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 		\item \textbf{Adres pobrania danych} - definiuje miejsce w pamięci jednostki centralnej Master, które będzie źródłem danych.
 		\item \textbf{Adres przesłania danych} - definiuje miejsce w jednostce centralnej stacji Slave, gdzie zostaną przekazane dane.
 		\item \textbf{Liczba danych}
-		\item \textbf{Wybór trybu przesłania} - może być \textit{periodyczny}, czyli wymiana wykonuje się w każdym cyklu pracy sieci, lub \textit{wyzwalany}, czyli wymiana realizowana jest przez program jednostki centralnej.
+		\item \textbf{Wybór trybu przesłania} - może być \textit{periodyczny}(zwany też \textit{cyklicznym}), czyli wymiana wykonuje się w każdym cyklu pracy sieci, lub \textit{wyzwalany}, czyli wymiana realizowana jest przez program jednostki centralnej.
 		\item \textbf{Autousuwanie} - określa czy przy braku odpowiedzi ze strony abonenta zostaje uruchamiany ten mechanizm. Został opisany w poprzednim podrozdziale.
 		\item \textbf{Adres słowa raportu wymiany z daną stacją}
 	\end{itemize}
@@ -288,7 +292,7 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 		\item $ T_{AR_i} $ \tab{- maksymalny czas analizy ramki odpowiedzi}
 		\item $ T_{A_i} $ \tab{- maksymalny czas trwania cyklu pracy w stacji Master}
 	\end{itemize}
-	Zastosowanie powyższych wzorów daje gwarancję, że w sieci Master - Slave każda transakcja zostanie poprawnie wykonana, jednak wartości te będą wpisane odgórnie oraz, ponieważ uwzględniają najgorsze możliwe przypadki, transakcje, które mogłyby wykonać się krócej, będą trwać tak samo długo jak inne. Czas ten można zmniejszyć posługują się mechanizmem autousuwania, ale należy korzystać z niego z rozwagą.
+	Zastosowanie powyższych wzorów daje gwarancję, że w sieci Master - Slave każda transakcja zostanie poprawnie wykonana, jednak wartości te będą wpisane odgórnie. Dodatkowo uwzględniają najgorsze możliwe przypadki, przez co transakcje, które mogłyby wykonać się krócej, będą trwać tak samo długo jak inne. Czas ten można zmniejszyć posługując się mechanizmem autousuwania, ale należy korzystać z niego z rozwagą.
 \newpage
 	\subsection{Czas trwania cyklu sieci}
 	Jest to niezwykle ważny parametr, który określa czas nadawania pomiędzy stacjami, jak również możliwości sieci do wykonywania określonych zadań.\\
@@ -309,7 +313,7 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 			\item \emph{LZT} \tab{- liczba znaków transmisji}
 			\item \emph{LBZ} \tab{- liczba bitów w pojedynczym znaku}
 			\item \emph{BS} \tab{- liczba bitów sterujących}
-			\item \emph{V} \tab{- prędkość transmisji transmisji}
+			\item \emph{V} \tab{- prędkość transmisji}
 		\end{itemize}
 		\item Czas transmisji ramki żądania wysyłanej przez stację Master
 		\begin{equation}
@@ -339,7 +343,7 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 			&\qquad {} + \sum_{i=1}^{N}{T_{AR_i}+T_{A_i}} +
 			2\cdot N\cdot T_{DR}
 		\end{align}
-		\item Powyższy czas może się zwiększyć jeżeli w sieci będą występować "dziury", które skutkują powtarzaniem wymian (repetycji). Dla $ N_R $ powtarzanych transmisji w całym scenariuszu wymian (realizacja wymian periodycznych) w najgorszym możliwym przypadku dodatkowy czas wyniesie:
+		\item Powyższy czas może się zwiększyć jeżeli w sieci będą występować "dziury", które skutkują powtarzaniem wymian (repetycjami). Dla $ N_R $ powtarzanych transmisji w całym scenariuszu wymian (realizacja wymian periodycznych) w najgorszym możliwym przypadku dodatkowy czas wyniesie:
 		\begin{equation}
 			T_{REP} = \sum_{i=1}^{N}{N_{R_i}\cdot T_{TR_i}+N_R\cdot T_{OD_i}}
 		\end{equation}
@@ -371,12 +375,10 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 		Gdzie $ T_{CW} $ oznacza czas trwania cyklu dla bezbłędnie działającej sieci, a $ T_{REP} $ oraz $ T_{WW} $ określają potencjalny nakład czasowy.
 	\end{enumerate}
 
-
-
 	\subsection{Sprawność sieci i jej przepustowość}
-	Znając całkowity czas pojedynczej transakcji danych ze wzoru \textit{(4)}, można przystąpić do wyliczenia wartości określających efektywność czasową przesyłania danych w sieci:
+	Znając całkowity czas pojedynczej transakcji danych ze wzoru \textit{(7)}, można przystąpić do wyliczenia wartości określających efektywność czasową przesyłania danych w sieci:
 	\begin{itemize}
-		\item \textbf{Sprawność} wyznacza stosunek czas przesyłu danych do całkowitego przesyłu danych w transakcji. Liczona w procentach.
+		\item \textbf{Sprawność} wyznacza stosunek czasu przesyłu informacji (bitów z danymi) do całkowitego czasu przesyłu danych w transakcji. Liczona w procentach.
 		\item \textbf{Przepustowość} pozwala określić maksymalną ilość informacji, jaka zostanie przesłana w jednostce czasu. Liczona w bitach na sekundę.
 	\end{itemize}
 	
@@ -393,12 +395,12 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 		\item η - sprawność
 		\item P - przepustowość
 		\item n - liczba bajtów danych
-		\item V - szybkość transmisji danych w siecie
-		\item $ T_{Wi} $ - Całkowity czas trwania pojedynczej transkacji danych (wliczająć ramkę żądania)
+		\item V - szybkość transmisji
+		\item $ T_{Wi} $ - Całkowity czas trwania pojedynczej transakcji danych (wliczając ramkę żądania)
 	\end{itemize}
 	
 	Ponieważ wartość $ T_{Wi} $ nie jest stałą zdefiniowaną globalnie, a indywidualną dla każdej ramki, wartości obu wielkości można wyrazić za pomocą przedziałów, używając w tym celu minimalnego i maksymalnego czasu trwania transakcji danych. \\
-	W praktyce dość często sprawność i przepustowość obliczana jest po odrzuceniu narzutu czasowego powstałego w wyniku dodatkowych akcji na magistrali, nie będących transmisją danych, m. in. czasu detekcji $ T_{DR} $ czy czasu transmisji tamki żądania $ T_{TR_i} $. W tym celu w miejsce $ T_{Wi} $ podstawiamy równanie ze wzoru \textit{(1)}. Po zamianie uzyskuje się nowe wartości, obejmujące wyłącznie czasu transakcji danych.
+	W praktyce dość często sprawność i przepustowość obliczana jest po odrzuceniu narzutu czasowego powstałego w wyniku dodatkowych akcji na magistrali, nie będących transmisją danych, m. in. czasu detekcji $ T_{DR} $ czy czasu transmisji ramki żądania $ T_{TR} $. W tym celu w miejsce $ T_{Wi} $ podstawiamy równanie ze wzoru \textit{(4)}. Po zamianie uzyskuje się nowe wartości, obejmujące wyłącznie czas transakcji danych.
 	
 	\begin{equation}
 	\eta = \cfrac{\cfrac{8\cdot n}{V}}{\cfrac{[LZT] \cdot [LBZ]+[BS]}{V}} = \cfrac{8\cdot n}{[LZT] \cdot [LBZ]+[BS]}
@@ -411,14 +413,14 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 	\subsection{Możliwości optymalizacji}
 	
 	Niezależnie od stosowanego podejścia, sprawność i przepustowość rośnie wraz z długością ramki. Należy jednak pamiętać, że jej zwiększanie niesie ze sobą również skutki uboczne - rośnie czas transmisji oraz cykl przetwarzania (co z kolei zwiększa czas trwania cyklu sieci). \\
-	W celu polepszenia parametrów czasowych, przede wszystkim powinno się poprawić czas trwania wymian - jest to najbezpieczniejszy sposób usprawnienia przepustowości i sprawności sieci (nie licząc zmiany sterównik i/lub koprocesorów na ich szybsze odpowiedniki). Optymalizacja powinna dotyczyć zwłaszcza jednostki nadrzędnej Master, ponieważ jest on inicjatorem lub odbiorcą każdej transakcji w systemie. Usprawnienie działania koprocesorów stacji Slave również poprawia parametry czasowe, lecz opatrzone jest mniejszym priorytetem. \\
+	W celu polepszenia parametrów czasowych, przede wszystkim powinno się poprawić czas trwania wymian - jest to najbezpieczniejszy sposób usprawnienia przepustowości i sprawności sieci (nie licząc zmiany sterowników i/lub koprocesorów na ich szybsze odpowiedniki). Optymalizacja powinna dotyczyć zwłaszcza jednostki nadrzędnej Master, ponieważ jest on inicjatorem lub odbiorcą każdej transakcji w systemie. Usprawnienie działania koprocesorów stacji Slave również poprawia parametry czasowe, lecz opatrzone jest mniejszym priorytetem. \\\\
 	Można wyodrębnić kilka zasad, które pozwalają na usprawnienie działania sieci:
 	\begin{itemize}
 		\item Skrócenie czasu trwania cyklu jednostki Master - można to uzyskać np. za pomocą podziału programu sterownika na mniejsze fragmenty, by zwiększyć częstotliwość komunikacji jednostki centralnej z koprocesorem.
 		\item W przypadku, kiedy Master kilkakrotnie wymienia informacje z tą samą jednostką podrzędną, można zrezygnować z raportu wymiany. Następuje wtedy grupowanie i wysłanie jednego raportu w ramach grupy zamiast pojedynczego dla każdej zrealizowanej transakcji.
 		\item Innym sposobem jest grupowanie danych przeznaczonych dla tego samego Slave'a już w jednostce centralnej Mastera, a następnie wysłanie ich w jednej, dłuższej ramce.
 		\item Wysyłanie jak największej liczby informacji w trakcie wymian wyzwalanych - najlepiej, aby były to sporadycznie używane polecenia, lub dane o mniejszym priorytecie. Ponieważ wymiany wyzwalane są stosowane rzadziej w porównaniu do cyklicznych, sieć zostanie odciążona z niepotrzebnych, nadmiarowych wymian. Dodatkowo, uzyskamy więcej miejsca na pilne transakcje.
-		\item Należy zadbać, aby wymiany cykliczne z tym sam abonentem nie następywały zaraz po sobie - po każdej transakcji Slave potrzebuje odrobiny czasu, aby zidentyfikować (zinterpretować) polecenie od arbitra sieci, skomunikować się ze swoją jednostką centralną oraz stworzyć odpowiedź.
+		\item Należy zadbać, aby wymiany cykliczne z tym samym abonentem nie następowały zaraz po sobie - po każdej transakcji Slave potrzebuje odrobiny czasu, aby zidentyfikować (zinterpretować) polecenie od arbitra sieci, skomunikować się ze swoją jednostką centralną oraz stworzyć ramkę odpowiedzi.
 		\item Szczególny przypadek powyższego punktu: jeżeli do jednej stacji podrzędnej wysyłany jest rozkaz zapisu i odczytu, to wpierw należy dokonać odczytu danych, a następnie zapisu. Taka kombinacja jest szybsza o jeden cykl jednostki centralnej Slave'a dla każdej takiej pary.
 	\end{itemize}
 
