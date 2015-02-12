@@ -19,6 +19,7 @@
 \usepackage{sidecap}
 \usepackage{wrapfig}
 \usepackage{float}	%for figure& table placement in text
+\usepackage{textgreek}
 
 
 \setlength{\textheight}{24cm}
@@ -357,7 +358,7 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 	
 	Gdzie:
 	\begin{itemize}
-		\item nano - sprawność
+		\item η - sprawność
 		\item P - przepustowość
 		\item n - liczba bajtów danych
 		\item V - szybkość transmisji danych w siecie
@@ -374,12 +375,20 @@ Parametryzacja jest ważnym elementem programowania koprocesora w stacji Master.
 	P = \cfrac{8\cdot n}{\cfrac{[LZT] \cdot [LBZ]+[BS]}{V}} = \cfrac{8\cdot n \cdot V}{[LZT] \cdot [LBZ]+[BS]}
 	\end{equation}
 	
-	Niezależnie od stosowanego podejścia, sprawność i przepustowość rośnie wraz z długością ramki. Należy jednak pamiętać, że jej zwiększanie niesie ze sobą również skutki uboczne - rośnie czas transmisji oraz cykl przetwarzania (co z kolei zwiększa czas trwania cyklu sieci). \\
-	
+		
 	\subsection{Możliwości optymalizacji}
 	
-	
-	
+	Niezależnie od stosowanego podejścia, sprawność i przepustowość rośnie wraz z długością ramki. Należy jednak pamiętać, że jej zwiększanie niesie ze sobą również skutki uboczne - rośnie czas transmisji oraz cykl przetwarzania (co z kolei zwiększa czas trwania cyklu sieci). \\
+	W celu polepszenia parametrów czasowych, przede wszystkim powinno się poprawić czas trwania wymian - jest to najbezpieczniejszy sposób usprawnienia przepustowości i sprawności sieci (nie licząc zmiany sterównik i/lub koprocesorów na ich szybsze odpowiedniki). Optymalizacja powinna dotyczyć zwłaszcza jednostki nadrzędnej Master, ponieważ jest on inicjatorem lub odbiorcą każdej transakcji w systemie. Usprawnienie działania koprocesorów stacji Slave również poprawia parametry czasowe, lecz opatrzone jest mniejszym priorytetem. \\
+	Można wyodrębnić kilka zasad, które pozwalają na usprawnienie działania sieci:
+	\begin{itemize}
+		\item Skrócenie czasu trwania cyklu jednostki Master - można to uzyskać np. za pomocą podziału programu sterownika na mniejsze fragmenty, by zwiększyć częstotliwość komunikacji jednostki centralnej z koprocesorem.
+		\item W przypadku, kiedy Master kilkakrotnie wymienia informacje z tą samą jednostką podrzędną, można zrezygnować z raportu wymiany. Następuje wtedy grupowanie i wysłanie jednego raportu w ramach grupy zamiast pojedynczego dla każdej zrealizowanej transakcji.
+		\item Innym sposobem jest grupowanie danych przeznaczonych dla tego samego Slave'a już w jednostce centralnej Mastera, a następnie wysłanie ich w jednej, dłuższej ramce.
+		\item Wysyłanie jak największej liczby informacji w trakcie wymian wyzwalanych - najlepiej, aby były to sporadycznie używane polecenia, lub dane o mniejszym priorytecie. Ponieważ wymiany wyzwalane są stosowane rzadziej w porównaniu do cyklicznych, sieć zostanie odciążona z niepotrzebnych, nadmiarowych wymian. Dodatkowo, uzyskamy więcej miejsca na pilne transakcje.
+		\item Należy zadbać, aby wymiany cykliczne z tym sam abonentem nie następywały zaraz po sobie - po każdej transakcji Slave potrzebuje odrobiny czasu, aby zidentyfikować (zinterpretować) polecenie od arbitra sieci, skomunikować się ze swoją jednostką centralną oraz stworzyć odpowiedź.
+		\item Szczególny przypadek powyższego punktu: jeżeli do jednej stacji podrzędnej wysyłany jest rozkaz zapisu i odczytu, to wpierw należy dokonać odczytu danych, a następnie zapisu. Taka kombinacja jest szybsza o jeden cykl jednostki centralnej Slave'a dla każdej takiej pary.
+	\end{itemize}
 
 
 \newpage
